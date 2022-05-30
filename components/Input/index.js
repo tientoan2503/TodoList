@@ -10,14 +10,14 @@ import {
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import styles from '../Input/style';
 
-export default InputTask = (props) => {
+export default InputTask = props => {
   const [task, setTask] = useState('');
 
   const handleAddTask = () => {
     if (task) {
-      props.onAddTask(task)
-      setTask('')
-      Keyboard.dismiss()
+      props.onAddTask({content: task, isDone: false});
+      setTask('');
+      Keyboard.dismiss();
     }
   };
   return (

@@ -5,16 +5,23 @@ import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import styles from './style';
 
 const Task = props => {
+  let textStyle = props.task.isDone
+    ? {
+        ...styles.textContent,
+        textDecorationLine: 'line-through',
+        textDecorationStyle: 'solid',
+      }
+    : styles.textContent;
+
   return (
     <View style={styles.todoItem}>
-      <BouncyCheckbox style={styles.checkbox} onPress={() => {}} />
-      <Text style={styles.textContent}>{props.content}</Text>
-      <IconAntDesign
-        name="closecircle"
-        size={18}
-        style={styles.iconRemove}
-        onPress={props.onRemove}
-      />
+      <BouncyCheckbox onPress={props.onDoneTask} isChecked={props.task.isDone} />
+
+      <Text style={textStyle}>{props.task.content}</Text>
+      
+      <View style={styles.iconRemove} onStartShouldSetResponder={props.onRemoveTask}>
+        <IconAntDesign name="closecircle" size={18} />
+      </View>
     </View>
   );
 };
