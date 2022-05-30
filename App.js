@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, ScrollView} from 'react-native';
+import {View, Text, ScrollView, Alert} from 'react-native';
 import Task from './components/Task';
 import styles from './App.styles';
 import Input from './components/Input';
@@ -12,6 +12,25 @@ export default () => {
     setTaskList([...taskList, task]);
   };
 
+  // Remove task
+  const handleRemoveTask = taskIndex => {
+    Alert.alert('Confirm', 'Are you sure to remove it?', [
+      {
+        text: 'Cancel',
+        onPress: () => {},
+        style: 'cancel',
+      },
+      {
+        text: 'OK',
+        onPress: () => {
+          let taskListTmp = [...taskList]
+          taskListTmp.splice(taskIndex, 1)
+          setTaskList(taskListTmp)
+        },
+      },
+    ]);
+  };
+
   return (
     <View style={styles.wrapper}>
       <View style={styles.header}>
@@ -19,8 +38,15 @@ export default () => {
       </View>
 
       <ScrollView style={styles.container}>
-        {taskList.map((task, item) => {
-          return <Task content={task} key={item} />;
+        {taskList.map((task, index) => {
+          return (
+            <Task
+              content={task}
+              key={index}
+              index={index}
+              onRemove={() => handleRemoveTask(index)}
+            />
+          );
         })}
       </ScrollView>
 
