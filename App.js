@@ -9,7 +9,7 @@ export default () => {
 
   // Add new task to list
   const handleAddTask = task => {
-    setTaskList([task, ...taskList]);
+    setTaskList([...taskList, task]);
   };
 
   // Remove task
