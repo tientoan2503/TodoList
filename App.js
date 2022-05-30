@@ -9,7 +9,7 @@ export default () => {
 
   // Add new task to list
   const handleAddTask = task => {
-    setTaskList([...taskList, task]);
+    setTaskList([task, ...taskList]);
   };
 
   // Remove task
@@ -23,12 +23,21 @@ export default () => {
       {
         text: 'OK',
         onPress: () => {
-          let taskListTmp = [...taskList]
-          taskListTmp.splice(taskIndex, 1)
-          setTaskList(taskListTmp)
+          let taskListTmp = [...taskList];
+          taskListTmp.splice(taskIndex, 1);
+          setTaskList(taskListTmp);
         },
       },
     ]);
+  };
+
+  // Done task
+  const handleDoneTask = taskIndex => {
+    let taskListTmp = [...taskList];
+    const task = taskList[taskIndex];
+    task.isDone = !task.isDone;
+    taskListTmp[taskIndex] = task;
+    setTaskList(taskListTmp);
   };
 
   return (
@@ -41,10 +50,10 @@ export default () => {
         {taskList.map((task, index) => {
           return (
             <Task
-              content={task}
+              task={task}
               key={index}
-              index={index}
-              onRemove={() => handleRemoveTask(index)}
+              onRemoveTask={() => handleRemoveTask(index)}
+              onDoneTask={() => handleDoneTask(index)}
             />
           );
         })}
