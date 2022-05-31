@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 
-const styles = {
+const styles = StyleSheet.create({
   todoItem: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -9,13 +9,14 @@ const styles = {
   },
   textContent: {
     flex: 1,
+    fontSize: 16,
   },
   iconRemove: {
     opacity: 0.5,
     padding: 6,
     alignItems: 'center',
-    justifyContents: 'center' 
-  }
-};
+    justifyContents: 'center',
+  },
+});
 
 export default styles;

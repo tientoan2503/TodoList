@@ -10,12 +10,16 @@ import {
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import styles from '../Input/style';
 
-export default InputTask = props => {
+export default InputTask = ({onAddTask}) => {
   const [task, setTask] = useState('');
 
   const handleAddTask = () => {
     if (task) {
-      props.onAddTask({content: task, isDone: false});
+      onAddTask({
+        dateTime: new Date().toLocaleString(),
+        content: task,
+        isDone: false,
+      });
       setTask('');
       Keyboard.dismiss();
     }
@@ -28,7 +32,7 @@ export default InputTask = props => {
         value={task}
         onChangeText={text => setTask(text)}
       />
-      <TouchableOpacity onPress={handleAddTask}>
+      <TouchableOpacity onPress={handleAddTask} activeOpacity={0.6}>
         <IconAntDesign
           name="pluscircle"
           size={32}

@@ -1,5 +1,4 @@
-import { StyleSheet } from "react-native";
-
+import {StyleSheet} from 'react-native';
 
 export default styles = StyleSheet.create({
   wrapper: {
@@ -7,13 +6,19 @@ export default styles = StyleSheet.create({
   },
   header: {
     padding: 16,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   textHeader: {
     color: 'black',
     fontWeight: 'bold',
-    fontSize: 24,
+    fontSize: 28,
   },
   container: {
-    flex: 1
+    flex: 1,
   },
+  btnSetting: {
+    color: 'black'
+  }
 });
