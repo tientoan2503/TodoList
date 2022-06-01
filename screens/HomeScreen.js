@@ -1,9 +1,8 @@
 import React, {useState} from 'react';
-import {View, Text, Alert, FlatList, TouchableOpacity} from 'react-native';
-import Task from '../components/Task';
+import {View, Alert, FlatList} from 'react-native';
+import Task from '../components/Task/Task';
 import styles from '../App.styles';
-import Input from '../components/Input';
-import IconAntDesign from 'react-native-vector-icons/AntDesign';
+import Input from '../components/Input/Input';
 
 export default ({navigation}) => {
   const [taskList, setTaskList] = useState([]);
