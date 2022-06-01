@@ -40,20 +40,20 @@ export default ({navigation}) => {
   // Done task
   const handleDoneTask = taskDone => {
     const taskListTemp = [...taskList];
-
     taskListTemp.find((task, index) => {
       if (task.dateTime === taskDone.dateTime) {
         // remove task done in array
         taskListTemp.splice(index, 1);
         // set isDone for task
-        task.isDone = !task.isDone;
+        taskDone.isDone = !taskDone.isDone;
         // if task is done, push task to bottom of array, else push it to beginning of array
-        if (task.isDone) {
-          taskListTemp.push(task);
+        if (taskDone.isDone) {
+          taskListTemp.push(taskDone);
         } else {
-          taskListTemp.unshift(task);
+          taskListTemp.unshift(taskDone);
         }
-        console.log('done', taskListTemp);
+        console.log('done', taskListTemp)
+        return true
       }
     });
     setTaskList(taskListTemp);
@@ -72,16 +72,8 @@ export default ({navigation}) => {
 
   return (
     <View style={styles.wrapper}>
-      <View style={styles.header}>
-        <Text style={styles.textHeader}>Todo list</Text>
-        <TouchableOpacity
-          style={{backgroundColor: 'transparent'}}
-          onPress={() => {navigation.navigate('Setting')}}>
-          <IconAntDesign name="setting" size={28} style={styles.btnSetting} />
-        </TouchableOpacity>
-      </View>
-
       <FlatList
+        extraData={taskList}
         data={taskList}
         renderItem={renderItem}
         keyExtractor={item => item.dateTime}

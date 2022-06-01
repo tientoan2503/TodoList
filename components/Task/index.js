@@ -16,10 +16,7 @@ const Task = ({task, onRemoveTask, onDoneTask}) => {
   return (
     <View style={styles.todoItem}>
       <BouncyCheckbox onPress={onDoneTask} isChecked={task.isDone} />
-    {console.log('task',task)}
-
       <Text style={textStyle}>{task.content}</Text>
-
       <View style={styles.iconRemove} onStartShouldSetResponder={onRemoveTask}>
         <IconAntDesign name="closecircle" size={18} />
       </View>
