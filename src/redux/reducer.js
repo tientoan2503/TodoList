@@ -69,9 +69,8 @@ export default rootReducer = createSlice({
       state.taskList.unshift(action.payload);
     },
     doneTask: (state, action) => {
-      const taskDone = action.payload;
       state.taskList.find((task, index) => {
-        if (task.dateTime === taskDone.dateTime) {
+        if (task.dateTime === action.payload.dateTime) {
           // remove task done in array
           state.taskList.splice(index, 1);
           // set isDone for task
