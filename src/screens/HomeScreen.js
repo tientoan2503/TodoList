@@ -1,15 +1,21 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {View, Alert, FlatList} from 'react-native';
 import Task from '../components/Task/Task';
 import styles from '../App.styles';
 import Input from '../components/Input/Input';
+import {useDispatch, useSelector} from 'react-redux';
+import {addTask, doneTask, removeTask} from '../redux/actions';
+import {taskListSelector} from '../redux/selectors';
 
 export default ({navigation}) => {
-  const [taskList, setTaskList] = useState([]);
+  // const [taskList, setTaskList] = useState([]);
+  const taskList = useSelector(taskListSelector);
+
+  const dispatch = useDispatch();
 
   // Add new task to list
   const handleAddTask = task => {
-    setTaskList(prev => [task, ...prev]);
+    dispatch(addTask(task));
   };
 
   // Remove task
@@ -23,14 +29,7 @@ export default ({navigation}) => {
       {
         text: 'OK',
         onPress: () => {
-          const taskListTemp = [...taskList];
-          console.log('remove', taskListTemp);
-          taskListTemp.find((task, index) => {
-            if (task.dateTime === taskRemoved.dateTime) {
-              taskListTemp.splice(index, 1);
-            }
-          });
-          setTaskList(taskListTemp);
+          dispatch(removeTask(taskRemoved));
         },
       },
     ]);
@@ -38,28 +37,10 @@ export default ({navigation}) => {
 
   // Done task
   const handleDoneTask = taskDone => {
-    const taskListTemp = [...taskList];
-    taskListTemp.find((task, index) => {
-      if (task.dateTime === taskDone.dateTime) {
-        // remove task done in array
-        taskListTemp.splice(index, 1);
-        // set isDone for task
-        taskDone.isDone = !taskDone.isDone;
-        // if task is done, push task to bottom of array, else push it to beginning of array
-        if (taskDone.isDone) {
-          taskListTemp.push(taskDone);
-        } else {
-          taskListTemp.unshift(taskDone);
-        }
-        console.log('done', taskListTemp)
-        return true
-      }
-    });
-    setTaskList(taskListTemp);
+    dispatch(doneTask(taskDone));
   };
 
   const renderItem = ({item}) => {
-    console.log('item', item);
     return (
       <Task
         task={item}
