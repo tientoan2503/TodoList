@@ -2,16 +2,27 @@ import React, {useState} from 'react';
 import {
   View,
   TextInput,
-  StyleSheet,
   TouchableOpacity,
-  Alert,
   Keyboard,
 } from 'react-native';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
+import { useSelector } from 'react-redux';
+import colors from '../../constant/colors';
+import { colorSelector } from '../../redux/selectors';
 import styles from './style';
 
 export default InputTask = ({onAddTask}) => {
   const [task, setTask] = useState('');
+  const color = useSelector(colorSelector)
+
+  let btnColor
+  if (color == 'blue') {
+    btnColor = colors.blue
+  } else if (color == 'pink') {
+    btnColor = colors.pink
+  } else if (color == 'orange') {
+    btnColor = colors.orange
+  }
 
   const handleAddTask = () => {
     if (task) {
@@ -36,7 +47,7 @@ export default InputTask = ({onAddTask}) => {
         <IconAntDesign
           name="pluscircle"
           size={32}
-          color="#f6c484"
+          color={btnColor}
           style={{paddingStart: 16}}
         />
       </TouchableOpacity>

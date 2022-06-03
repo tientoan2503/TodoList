@@ -16,16 +16,16 @@ setupServer();
 const Stack = createNativeStackNavigator();
 
 export default App = () => {
-  useEffect(() => {
-    fetch('api/taskList', {
-      method: 'POST',
-      body: JSON.stringify({dateTime: 4, content: 'hehe'}),
-    }).then(res => {
-      fetch('api/taskList')
-        .then(res => res.json())
-        .then(res => console.log(res));
-    });
-  }, []);
+  // useEffect(() => {
+  //   fetch('api/taskList', {
+  //     method: 'POST',
+  //     body: JSON.stringify({dateTime: 4, content: 'hehe'}),
+  //   }).then(res => {
+  //     fetch('api/taskList')
+  //       .then(res => res.json())
+  //       .then(res => console.log(res));
+  //   });
+  // }, []);
 
   return (
     <Provider store={store}>
@@ -51,7 +51,11 @@ export default App = () => {
               ),
             })}
           />
-          <Stack.Screen name="Setting" component={SettingScreen} />
+          <Stack.Screen
+            options={{headerShown: false}}
+            name="Setting"
+            component={SettingScreen}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

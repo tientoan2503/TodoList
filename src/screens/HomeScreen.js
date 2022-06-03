@@ -4,9 +4,8 @@ import Task from '../components/Task/Task';
 import styles from '../App.styles';
 import Input from '../components/Input/Input';
 import {useDispatch, useSelector} from 'react-redux';
-import {addTask, doneTask, removeTask} from '../redux/actions';
 import {taskListSelector} from '../redux/selectors';
-import  rootReducer  from '../redux/reducer';
+import  taskSlice  from '../redux/taskSlice';
 
 export default ({navigation}) => {
   // const [taskList, setTaskList] = useState([]);
@@ -16,7 +15,7 @@ export default ({navigation}) => {
 
   // Add new task to list
   const handleAddTask = task => {
-    dispatch(rootReducer.actions.addTask(task));
+    dispatch(taskSlice.actions.addTask(task));
   };
 
   // Remove task
@@ -30,7 +29,7 @@ export default ({navigation}) => {
       {
         text: 'OK',
         onPress: () => {
-          dispatch(rootReducer.actions.removeTask(taskRemoved));
+          dispatch(taskSlice.actions.removeTask(taskRemoved));
         },
       },
     ]);
@@ -38,7 +37,7 @@ export default ({navigation}) => {
 
   // Done task
   const handleDoneTask = taskDone => {
-    dispatch(rootReducer.actions.doneTask(taskDone));
+    dispatch(taskSlice.actions.doneTask(taskDone));
   };
 
   const renderItem = ({item}) => {
