@@ -9,9 +9,6 @@ export default SettingScreen = ({navigation}) => {
   const dispatch = useDispatch()
   const color = useSelector(colorSelector)
 
-  // const selectColor = (c) => {
-  //   dispatch(colorSlice.actions.changeColor(c))
-  // }
   const selectColor = c => {
     dispatch(colorSlice.actions.changeColor(c));
   };
