@@ -7,8 +7,12 @@
 
 /* Use redux-toolkit */
 import { configureStore } from "@reduxjs/toolkit";
-import rootReducer from "./reducer";
+import colorSlice from "./colorSlice";
+import taskSlice from "./taskSlice";
 
 export default store = configureStore({
-  reducer: rootReducer.reducer
+  reducer: {
+    taskList: taskSlice.reducer,
+    color: colorSlice.reducer
+  }
 })
