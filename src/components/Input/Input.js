@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   TextInput,
@@ -6,24 +6,23 @@ import {
   Keyboard,
 } from 'react-native';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import colors from '../../constant/colors';
 import { colorSelector } from '../../redux/selectors';
 import styles from './style';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import colorSlice from '../../redux/colorSlice';
 
 export default InputTask = ({onAddTask}) => {
   const [task, setTask] = useState('');
   const color = useSelector(colorSelector)
+  const dispatch = useDispatch()
 
-  let btnColor
-  if (color == 'blue') {
-    btnColor = colors.blue
-  } else if (color == 'pink') {
-    btnColor = colors.pink
-  } else if (color == 'orange') {
-    btnColor = colors.orange
-  }
-
+  useEffect(() => {
+    AsyncStorage.getItem('color').then(value => {
+      dispatch(colorSlice.actions.changeColor(value))
+    })
+  }, [])
   const handleAddTask = () => {
     if (task) {
       onAddTask({
@@ -47,7 +46,7 @@ export default InputTask = ({onAddTask}) => {
         <IconAntDesign
           name="pluscircle"
           size={32}
-          color={btnColor}
+          color={color}
           style={{paddingStart: 16}}
         />
       </TouchableOpacity>

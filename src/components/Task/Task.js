@@ -1,23 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {View, Text} from 'react-native';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import styles from './style';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { colorSelector } from '../../redux/selectors';
 import colors from '../../constant/colors';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import colorSlice from '../../redux/colorSlice';
 
 const Task = ({task, onRemoveTask, onDoneTask}) => {
   const color = useSelector(colorSelector)
+  const dispatch = useDispatch()
 
-  let fillColor
-  if (color == 'blue') {
-    fillColor = colors.blue
-  } else if (color == 'pink') {
-    fillColor = colors.pink
-  } else if (color == 'orange') {
-    fillColor = colors.orange
-  }
+  useEffect(() => {
+    AsyncStorage.getItem('color').then(value => {
+      dispatch(colorSlice.actions.changeColor(value))
+    })
+  }, [])
 
   let textStyle = task.isDone
     ? {
@@ -29,7 +29,7 @@ const Task = ({task, onRemoveTask, onDoneTask}) => {
 
   return (
     <View style={styles.todoItem}>
-      <BouncyCheckbox onPress={onDoneTask} isChecked={task.isDone} fillColor={fillColor}/>
+      <BouncyCheckbox onPress={onDoneTask} isChecked={task.isDone} fillColor={color}/>
       <Text style={textStyle}>{task.content}</Text>
       <View style={styles.iconRemove} onStartShouldSetResponder={onRemoveTask}>
         <IconAntDesign name="closecircle" size={18} />

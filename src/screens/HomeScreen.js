@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {View, Alert, FlatList} from 'react-native';
 import Task from '../components/Task/Task';
 import styles from '../App.styles';
@@ -6,12 +6,19 @@ import Input from '../components/Input/Input';
 import {useDispatch, useSelector} from 'react-redux';
 import {taskListSelector} from '../redux/selectors';
 import  taskSlice  from '../redux/taskSlice';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default ({navigation}) => {
-  // const [taskList, setTaskList] = useState([]);
+
   const taskList = useSelector(taskListSelector);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    AsyncStorage.getItem('taskList').then(value => {
+      dispatch(taskSlice.actions.syncTask(JSON.parse(value)))
+    })
+  }, [])
 
   // Add new task to list
   const handleAddTask = task => {

@@ -58,6 +58,15 @@
 
 /* Use redux-toolkit */
 import {createSlice} from '@reduxjs/toolkit';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const pushDataToStorage = async (taskList) => {
+  try {
+    await AsyncStorage.setItem('taskList', JSON.stringify(taskList))
+  } catch (e) {
+    console.log(e)
+  }
+}
 
 export default taskSlice = createSlice({
   name: 'taskList',
@@ -65,6 +74,7 @@ export default taskSlice = createSlice({
   reducers: {
     addTask: (state, action) => {
       state.unshift(action.payload);
+      pushDataToStorage(state)
     },
     doneTask: (state, action) => {
       state.find((task, index) => {
@@ -82,6 +92,7 @@ export default taskSlice = createSlice({
           return true;
         }
       });
+      pushDataToStorage(state)
     },
     removeTask: (state, action) => {
       state.find((task, index) => {
@@ -90,6 +101,10 @@ export default taskSlice = createSlice({
           return true;
         }
       });
+      pushDataToStorage(state)
     },
+    syncTask: (state, action) => {
+      return state = action.payload
+    }
   },
 });

@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {View, Text, StyleSheet, ScrollView} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import colors from '../constant/colors';
 import colorSlice from '../redux/colorSlice';
 import { colorSelector } from '../redux/selectors';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default SettingScreen = ({navigation}) => {
   const dispatch = useDispatch()
@@ -12,6 +13,12 @@ export default SettingScreen = ({navigation}) => {
   const selectColor = c => {
     dispatch(colorSlice.actions.changeColor(c));
   };
+
+  useEffect(() => {
+    AsyncStorage.getItem('color').then((value) => {
+      dispatch(colorSlice.actions.changeColor(value))
+    })
+  }, [])
 
   return (
     <View style={styles.wrapper}>
@@ -29,27 +36,27 @@ export default SettingScreen = ({navigation}) => {
           <View style={styles.themeColor}>
             <View
               style={
-                color == 'orange'
+                color == colors.orange
                   ? {...styles.colorOrange, ...styles.colorSelected}
                   : styles.colorOrange
               }
-              onStartShouldSetResponder={() => selectColor('orange')}
+              onStartShouldSetResponder={() => selectColor(colors.orange)}
             />
             <View
               style={
-                color == 'blue'
+                color == colors.blue
                   ? {...styles.colorBlue, ...styles.colorSelected}
                   : styles.colorBlue
               }
-              onStartShouldSetResponder={() => selectColor('blue')}
+              onStartShouldSetResponder={() => selectColor(colors.blue)}
             />
             <View
               style={
-                color == 'pink'
+                color == colors.pink
                   ? {...styles.colorPink, ...styles.colorSelected}
                   : styles.colorPink
               }
-              onStartShouldSetResponder={() => selectColor('pink')}
+              onStartShouldSetResponder={() => selectColor(colors.pink)}
             />
             <View />
           </View>
