@@ -60,7 +60,6 @@ export default ({navigation}) => {
 
   // Done task
   const handleDoneTask = taskDone => {
-    pushNotification()
     dispatch(taskSlice.actions.doneTask(taskDone));
   };
 

@@ -7,7 +7,7 @@ const setColor = async (color) => {
     if (color) {
       await AsyncStorage.setItem('color', color)
     } else {
-      await AsyncStorage.setItem('color', 'orange')
+      await AsyncStorage.setItem('color', COLORS.orange)
     }
   } catch (e) {
     console.log(e)

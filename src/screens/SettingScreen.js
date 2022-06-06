@@ -33,7 +33,7 @@ export default SettingScreen = ({navigation}) => {
                   ? {...styles.colorOrange, ...styles.colorSelected}
                   : styles.colorOrange
               }
-              onStartShouldSetResponder={() => selectColor(colors.orange)}
+              onStartShouldSetResponder={() => selectColor(COLORS.orange)}
             />
             <View
               style={
@@ -41,7 +41,7 @@ export default SettingScreen = ({navigation}) => {
                   ? {...styles.colorBlue, ...styles.colorSelected}
                   : styles.colorBlue
               }
-              onStartShouldSetResponder={() => selectColor(colors.blue)}
+              onStartShouldSetResponder={() => selectColor(COLORS.blue)}
             />
             <View
               style={
@@ -49,7 +49,7 @@ export default SettingScreen = ({navigation}) => {
                   ? {...styles.colorPink, ...styles.colorSelected}
                   : styles.colorPink
               }
-              onStartShouldSetResponder={() => selectColor(colors.pink)}
+              onStartShouldSetResponder={() => selectColor(COLORS.pink)}
             />
             <View />
           </View>

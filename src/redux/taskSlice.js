@@ -59,6 +59,8 @@
 /* Use redux-toolkit */
 import {createSlice} from '@reduxjs/toolkit';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import PushNotification from 'react-native-push-notification'
+import { CHANNEL_ID } from '../constant/notification';
 
 const pushDataToStorage = async (taskList) => {
   try {
@@ -67,6 +69,18 @@ const pushDataToStorage = async (taskList) => {
     console.log(e)
   }
 }
+const pushNotification = (task) => {
+  const id = new Date(task.dateTime).getTime() / 10000
+  console.log('push', id)
+  PushNotification.localNotificationSchedule({
+    channelId: CHANNEL_ID,
+    title: 'Việc này hoàn thành chưa cu ơi?',
+    message: task.content,
+    date: new Date(task.dateTime),
+    allowWhileIdle: true,
+    id: id,
+  })
+}
 
 export default taskSlice = createSlice({
   name: 'taskList',
@@ -74,6 +88,7 @@ export default taskSlice = createSlice({
   reducers: {
     addTask: (state, action) => {
       state.unshift(action.payload);
+      pushNotification(action.payload)
       pushDataToStorage(state)
     },
     doneTask: (state, action) => {
@@ -85,8 +100,11 @@ export default taskSlice = createSlice({
           task.isDone = !task.isDone;
           // if task is done, push task to bottom of array, else push it to beginning of array
           if (task.isDone) {
+            const notiId = new Date(task.dateTime).getTime() / 10000
+            PushNotification.cancelLocalNotification(notiId)
             state.push(task);
           } else {
+            pushNotification(task)
             state.unshift(task);
           }
           return true;
@@ -97,6 +115,8 @@ export default taskSlice = createSlice({
     removeTask: (state, action) => {
       state.find((task, index) => {
         if (task.key === action.payload.key) {
+          const notiId = new Date(task.dateTime).getTime() / 10000
+          PushNotification.cancelLocalNotification(notiId)
           state.splice(index, 1);
           return true;
         }
