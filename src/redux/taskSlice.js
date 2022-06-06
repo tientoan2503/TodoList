@@ -104,7 +104,12 @@ export default taskSlice = createSlice({
       pushDataToStorage(state)
     },
     syncTask: (state, action) => {
-      return state = action.payload
+      // if action.payload == null => state = initialState = []
+      if (action.payload) {
+        return state = action.payload
+      } else {
+        return state
+      } 
     }
   },
 });

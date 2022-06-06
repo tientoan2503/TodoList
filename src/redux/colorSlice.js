@@ -19,7 +19,11 @@ export default colorSlice = createSlice({
   reducers: {
     changeColor: (state, action) => {
       changeColor(action.payload)
-      return state = action.payload;
+      if (action.payload) {
+        return state = action.payload;
+      } else {
+        return state
+      }
     },
   },
 });
