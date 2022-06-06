@@ -1,25 +1,18 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {View, Text, StyleSheet, ScrollView} from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import colors from '../constant/colors';
 import colorSlice from '../redux/colorSlice';
-import { colorSelector } from '../redux/selectors';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {colorSelector} from '../redux/selectors';
 
 export default SettingScreen = ({navigation}) => {
-  const dispatch = useDispatch()
-  const color = useSelector(colorSelector)
+  const dispatch = useDispatch();
+  const color = useSelector(colorSelector);
 
   const selectColor = c => {
     dispatch(colorSlice.actions.changeColor(c));
   };
-
-  useEffect(() => {
-    AsyncStorage.getItem('color').then((value) => {
-      dispatch(colorSlice.actions.changeColor(value))
-    })
-  }, [])
-
+  console.log('color', color);
   return (
     <View style={styles.wrapper}>
       <View style={styles.header}>

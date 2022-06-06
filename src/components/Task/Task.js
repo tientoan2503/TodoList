@@ -11,15 +11,8 @@ import colorSlice from '../../redux/colorSlice';
 
 const Task = ({task, onRemoveTask, onDoneTask}) => {
   const color = useSelector(colorSelector)
-  const dispatch = useDispatch()
 
-  useEffect(() => {
-    AsyncStorage.getItem('color').then(value => {
-      dispatch(colorSlice.actions.changeColor(value))
-    })
-  }, [])
-
-  let textStyle = task.isDone
+  let contentTextStyle = task.isDone
     ? {
         ...styles.textContent,
         textDecorationLine: 'line-through',
@@ -27,10 +20,21 @@ const Task = ({task, onRemoveTask, onDoneTask}) => {
       }
     : styles.textContent;
 
+  let dateTextStyle = task.isDone
+  ? {
+      ...styles.textDate,
+      textDecorationLine: 'line-through',
+      textDecorationStyle: 'solid',
+    }
+  : styles.textDate;
+
   return (
     <View style={styles.todoItem}>
       <BouncyCheckbox onPress={onDoneTask} isChecked={task.isDone} fillColor={color}/>
-      <Text style={textStyle}>{task.content}</Text>
+      <View style={styles.wrapperContent}>
+        <Text style={contentTextStyle}>{task.content}</Text>
+        <Text style={dateTextStyle}>{task.dateTime}</Text>
+      </View>
       <View style={styles.iconRemove} onStartShouldSetResponder={onRemoveTask}>
         <IconAntDesign name="closecircle" size={18} />
       </View>

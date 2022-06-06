@@ -78,7 +78,7 @@ export default taskSlice = createSlice({
     },
     doneTask: (state, action) => {
       state.find((task, index) => {
-        if (task.dateTime === action.payload.dateTime) {
+        if (task.key === action.payload.key) {
           // remove task done in array
           state.splice(index, 1);
           // set isDone for task
@@ -96,7 +96,7 @@ export default taskSlice = createSlice({
     },
     removeTask: (state, action) => {
       state.find((task, index) => {
-        if (task.dateTime === action.payload.dateTime) {
+        if (task.key === action.payload.key) {
           state.splice(index, 1);
           return true;
         }

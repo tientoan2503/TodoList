@@ -8,7 +8,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   textContent: {
-    flex: 1,
     fontSize: 16,
   },
   iconRemove: {
@@ -17,6 +16,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContents: 'center',
   },
+  textDate: {
+    fontSize: 12,
+  },
+  wrapperContent: {
+    flex: 1,
+    justifyContent: 'center',
+  }
 });
 
 export default styles;

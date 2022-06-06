@@ -18,6 +18,10 @@ export default ({navigation}) => {
     AsyncStorage.getItem('taskList').then(value => {
       dispatch(taskSlice.actions.syncTask(JSON.parse(value)))
     })
+
+    AsyncStorage.getItem('color').then(value => {
+      dispatch(colorSlice.actions.changeColor(value));
+    });
   }, [])
 
   // Add new task to list
@@ -63,7 +67,7 @@ export default ({navigation}) => {
         extraData={taskList}
         data={taskList}
         renderItem={renderItem}
-        keyExtractor={item => item.dateTime}
+        keyExtractor={item => item.key}
       />
       <Input onAddTask={handleAddTask} />
     </View>
