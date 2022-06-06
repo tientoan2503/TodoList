@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import colors from '../constant/colors';
+import COLORS from '../constant/colors';
 
 const setColor = async (color) => {
   try {
@@ -16,7 +16,7 @@ const setColor = async (color) => {
 
 export default colorSlice = createSlice({
   name: 'color',
-  initialState: colors.orange,
+  initialState: COLORS.orange,
   reducers: {
     changeColor: (state, action) => {
       setColor(action.payload)

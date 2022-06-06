@@ -1,13 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {View, TextInput, TouchableOpacity, Keyboard} from 'react-native';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
-import {useDispatch, useSelector} from 'react-redux';
-import colors from '../../constant/colors';
+import {useSelector} from 'react-redux';
 import {colorSelector} from '../../redux/selectors';
 import styles from './style';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import colorSlice from '../../redux/colorSlice';
 import DatePicker from 'react-native-date-picker';
+import PushNotification from 'react-native-push-notification'
+import { CHANNEL_ID } from '../../constant/notification';
 
 export default InputTask = ({onAddTask}) => {
   const [task, setTask] = useState('');
@@ -17,24 +16,30 @@ export default InputTask = ({onAddTask}) => {
   const handleAddTask = date => {
     if (task) {
       setShowDatePicker(false);
-      onAddTask({
+      const t = {
         key: new Date().toLocaleString(),
-        dateTime: formatDate(date),
+        dateTime: date.toLocaleString(),
         content: task,
         isDone: false,
-      });
+      }
+      onAddTask(t);
+
+      pushNotification(t)
+
       setTask('');
       Keyboard.dismiss();
     }
   };
 
-  const formatDate = d => {
-    const dformat =
-      [d.getHours(), d.getMinutes()].join(':') +
-      ' - ' +
-      [d.getDate(), d.getMonth() + 1, d.getFullYear()].join('/');
-    return dformat;
-  };
+  const pushNotification = (task) => {
+    PushNotification.localNotificationSchedule({
+      channelId: CHANNEL_ID,
+      title: 'Việc này hoàn thành chưa cu ơi?',
+      message: task.content,
+      date: new Date(task.dateTime),
+      allowWhileIdle: true,
+    })
+  }
 
   const handleShowDatePicker = () => {
     if (task) {
@@ -63,6 +68,7 @@ export default InputTask = ({onAddTask}) => {
         modal
         open={showDatePicker}
         date={new Date()}
+        minimumDate={new Date(Date.now() + 1000)}
         mode="datetime"
         onConfirm={date => {
           handleAddTask(date);

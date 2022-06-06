@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet, ScrollView} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import colors from '../constant/colors';
+import COLORS from '../constant/colors';
 import colorSlice from '../redux/colorSlice';
 import {colorSelector} from '../redux/selectors';
 
@@ -12,7 +12,7 @@ export default SettingScreen = ({navigation}) => {
   const selectColor = c => {
     dispatch(colorSlice.actions.changeColor(c));
   };
-  console.log('color', color);
+  
   return (
     <View style={styles.wrapper}>
       <View style={styles.header}>
@@ -29,7 +29,7 @@ export default SettingScreen = ({navigation}) => {
           <View style={styles.themeColor}>
             <View
               style={
-                color == colors.orange
+                color == COLORS.orange
                   ? {...styles.colorOrange, ...styles.colorSelected}
                   : styles.colorOrange
               }
@@ -37,7 +37,7 @@ export default SettingScreen = ({navigation}) => {
             />
             <View
               style={
-                color == colors.blue
+                color == COLORS.blue
                   ? {...styles.colorBlue, ...styles.colorSelected}
                   : styles.colorBlue
               }
@@ -45,7 +45,7 @@ export default SettingScreen = ({navigation}) => {
             />
             <View
               style={
-                color == colors.pink
+                color == COLORS.pink
                   ? {...styles.colorPink, ...styles.colorSelected}
                   : styles.colorPink
               }
@@ -97,21 +97,21 @@ const styles = StyleSheet.create({
   },
   colorBlue: {
     ...theme,
-    backgroundColor: colors.blue,
+    backgroundColor: COLORS.blue,
   },
   colorOrange: {
     ...theme,
-    backgroundColor: colors.orange,
+    backgroundColor: COLORS.orange,
   },
   colorPink: {
     ...theme,
-    backgroundColor: colors.pink,
+    backgroundColor: COLORS.pink,
   },
   themeColor: {
     flexDirection: 'row',
   },
   colorSelected: {
     borderWidth: 2.5,
-    borderColor: colors.selected,
+    borderColor: COLORS.selected,
   },
 });

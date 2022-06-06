@@ -7,6 +7,8 @@ import {useDispatch, useSelector} from 'react-redux';
 import {taskListSelector} from '../redux/selectors';
 import  taskSlice  from '../redux/taskSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import PushNotification from 'react-native-push-notification'
+import { CHANNEL_ID, CHANNEL_NAME } from '../constant/notification';
 
 export default ({navigation}) => {
 
@@ -22,7 +24,17 @@ export default ({navigation}) => {
     AsyncStorage.getItem('color').then(value => {
       dispatch(colorSlice.actions.changeColor(value));
     });
+
+    createNotificationChannel()
   }, [])
+
+  // create notification channel
+  const createNotificationChannel = () => {
+    PushNotification.createChannel({
+      channelId: CHANNEL_ID,
+      channelName: CHANNEL_NAME
+    })
+  }
 
   // Add new task to list
   const handleAddTask = task => {
@@ -48,6 +60,7 @@ export default ({navigation}) => {
 
   // Done task
   const handleDoneTask = taskDone => {
+    pushNotification()
     dispatch(taskSlice.actions.doneTask(taskDone));
   };
 
