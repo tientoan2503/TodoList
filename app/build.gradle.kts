@@ -61,4 +61,8 @@ dependencies {
     // Navigation
     implementation(libs.navigation)
     implementation(libs.navigation.ui)
+
+    // Hilt
+    implementation(libs.hilt)
+    ksp(libs.hilt.compiler)
 }
