@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace = "com.tientoan.rikka.todolist"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.tientoan.rikka.todolist"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -34,6 +34,9 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -53,7 +56,7 @@ dependencies {
     // Room
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
-    ksp(libs.room.complier)
+    ksp(libs.room.compiler)
 
     // Navigation
     implementation(libs.navigation)
