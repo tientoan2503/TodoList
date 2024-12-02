@@ -10,6 +10,5 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
   }
 
   override fun initAction(savedInstanceState: Bundle?) {
-
   }
 }

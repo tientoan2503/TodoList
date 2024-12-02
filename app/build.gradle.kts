@@ -50,13 +50,9 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    // Coroutine
-    implementation(libs.kotlin.coroutine)
-
-    // Room
-    implementation(libs.room.runtime)
-    implementation(libs.room.ktx)
-    ksp(libs.room.compiler)
+    // Module data, domain
+    implementation(project(":data"))
+    implementation(project(":domain"))
 
     // Navigation
     implementation(libs.navigation)
