@@ -7,10 +7,9 @@
  * This file was originally created by hoangchungk53qx1 (https://github.com/hoangchungk53qx1)
  */
 
-package com.tientoan.rikka.data.di
+package com.tientoan.rikka.core.dispatcher
 
 
-import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
@@ -25,7 +24,7 @@ import kotlinx.coroutines.SupervisorJob
 interface AppCoroutineScope : CoroutineScope
 
 internal class DefaultAppCoroutineScope
-@Inject
+@javax.inject.Inject
 constructor(appCoroutineDispatchers: AppCoroutineDispatchers) :
   AppCoroutineScope {
   override val coroutineContext: CoroutineContext =

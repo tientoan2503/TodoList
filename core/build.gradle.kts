@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-  namespace = "com.tientoan.rikka.data"
+  namespace = "com.tientoan.rikka.core"
   compileSdk = 34
 
   defaultConfig {
@@ -39,17 +39,7 @@ dependencies {
   androidTestImplementation(libs.androidx.junit)
   androidTestImplementation(libs.androidx.espresso.core)
 
-  // Module domain, core
-  implementation(project(":domain"))
-  implementation(project(":core"))
-
-  // Room
-  implementation(libs.room.runtime)
-  implementation(libs.room.ktx)
-  ksp(libs.room.compiler)
-
   // Hilt
   implementation(libs.hilt)
   ksp(libs.hilt.compiler)
-
 }

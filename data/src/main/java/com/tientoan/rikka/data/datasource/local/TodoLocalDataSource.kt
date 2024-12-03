@@ -1,7 +1,7 @@
 package com.tientoan.rikka.data.datasource.local
 
+import com.tientoan.rikka.core.dispatcher.AppCoroutineDispatchers
 import com.tientoan.rikka.data.database.dao.TodoDao
-import com.tientoan.rikka.data.di.AppCoroutineDispatchers
 import com.tientoan.rikka.data.mapper.toDataModel
 import com.tientoan.rikka.data.mapper.toDomainModel
 import com.tientoan.rikka.domain.model.Todo

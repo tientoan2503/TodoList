@@ -50,9 +50,10 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    // Module data, domain
+    // Module data, domain, core
     implementation(project(":data"))
     implementation(project(":domain"))
+    implementation(project(":core"))
 
     // Navigation
     implementation(libs.navigation)

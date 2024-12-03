@@ -7,9 +7,8 @@
  */
 
 
-package com.tientoan.rikka.data.di
+package com.tientoan.rikka.core.dispatcher
 
-import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
@@ -30,7 +29,7 @@ interface AppCoroutineDispatchers {
 }
 
 internal class DefaultAppCoroutineDispatchers
-@Inject
+@javax.inject.Inject
 constructor() : AppCoroutineDispatchers {
   override val main: CoroutineDispatcher get() = Dispatchers.Main
   override val io: CoroutineDispatcher get() = Dispatchers.IO
